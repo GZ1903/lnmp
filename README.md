@@ -18,6 +18,6 @@ redis 6.2.2
 部署脚本：
 
 ```shell
-yum -y install git wget && git clone https://gitee.com/gz1903/lnmp.git cd lnmp && chmod +x lnmp.sh && ./lnmp.sh
+yum -y install git wget && git clone https://gitee.com/gz1903/lnmp.git && cd lnmp && chmod +x lnmp.sh && ./lnmp.sh
 ```
 
