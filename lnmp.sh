@@ -41,6 +41,19 @@ firewall-cmd --reload
 firewall-cmd --zone=public --list-ports
 #放行TCP80、443端口
 
+echo -e "\033[36m#######################################################################\033[0m"
+echo -e "\033[36m#                                                                     #\033[0m"
+echo -e "\033[36m#                  正在配置aliyum源 请稍等~                           #\033[0m"
+echo -e "\033[36m#                                                                     #\033[0m"
+echo -e "\033[36m#######################################################################\033[0m"
+yum -y install wget
+cd /etc/yum.repos.d/
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+wget -O CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+yum clean all
+yum makecache
+
 # 安装 EPEL ( Extra Packages for Enterprise Linux ) YUM 源，用以解决部分依赖包不存在的问题
 yum install -y epel-release
 
@@ -159,7 +172,7 @@ ip="$(ip addr | awk '/^[0-9]+: / {}; /inet.*global/ {print gensub(/(.*)\/(.*)/, 
 #获取主机外网ip
 ips="$(curl ip.sb)"
 
-systemctl restart php-fpm mysqld redis && nginx -s stop && nginx
+systemctl restart php-fpm mysqld redis && nginx
 echo $?="服务启动完成"
 
 echo -e "\033[32m--------------------------- 安装已完成 ---------------------------\033[0m"
@@ -195,5 +208,4 @@ process
 ret=$?
 exec 1>&3 3>&-
 exec 2>&4 4>&-
-
 
